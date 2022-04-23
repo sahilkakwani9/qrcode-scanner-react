@@ -91,12 +91,17 @@
 
 import React, { useState } from 'react';
 import { QrReader } from 'react-qr-reader';
+import { Container, Box, Text } from '@chakra-ui/react'
 
 function App(){
   const [data, setData] = useState('No result');
 
   return (
     <>
+    <Container maxW='95%'>
+    <Box w='100%' p={4} textAlign="center">
+    <Text fontSize='4xl'>QR Code Scanner</Text>
+    </Box>
       <QrReader
         onResult={(result, error) => {
           if (!!result) {
@@ -107,9 +112,10 @@ function App(){
             console.info(error);
           }
         }}
-        style={{ width: '10%' }}
       />
       <p>{data}</p>
+   </Container>
+      
     </>
   )
 }
