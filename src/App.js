@@ -95,7 +95,18 @@ import { Container, Box, Text, Button, Flex } from '@chakra-ui/react'
 
 function App(){
   const [data, setData] = useState('No result');
-  const [screen, setScreen] = useState(false)
+  const [screen, setScreen] = useState(false);
+  const startCamera = () => {
+    if(!screen){
+      setScreen(true);
+    }
+  }
+  const stopCamera = () => {
+    if(screen){
+      setScreen(false);
+    }
+    
+  }
 
   return (
     <>
@@ -104,8 +115,8 @@ function App(){
     
     <Text fontSize='4xl' color='#4FD1C5'>QR Code Scanner</Text>
     <Flex color='white' justifyContent={'space-around'}>
-      <Button colorScheme='blue' mr={2} onClick={setScreen(true)}>Start Camera</Button>
-      <Button colorScheme='blue'>Stop Camera</Button>
+      <Button colorScheme='blue' mr={2} onClick={() => startCamera()}>Start Camera</Button>
+      <Button colorScheme='blue' onClick={() => stopCamera()}>Stop Camera</Button>
     </Flex>
     
     {screen && <QrReader
