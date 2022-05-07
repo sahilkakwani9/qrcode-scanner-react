@@ -6,6 +6,7 @@ function App(){
   const [data, setData] = useState('No result');
   const [screen, setScreen] = useState(false);
   const [num, setNum] = useState(0);
+  const dataList = ["sahil"];
   const [lists, setLists] = useState(dataList);
   const startCamera = () => {
     if(!screen){
@@ -15,8 +16,11 @@ function App(){
   const stopCamera = () => {
     if(screen){
       setScreen(false);
-    }
-    
+    }   
+  }
+
+  const clearList = () => {
+    setLists("")
   }
   // const handleList = () => {
   //   for(int i =0; i < dataList.length; i++){
@@ -24,7 +28,7 @@ function App(){
   //   }
   // }
 
-  const dataList = ["sahil"];
+  
 
   return (
     <>
@@ -38,12 +42,16 @@ function App(){
         onResult={(result, error) => {
           if (!!result) {
             setData(result?.text);
-            setData(data.Name);
             let n =0;
             if (data != null){
-              n = dataList.push(data);
-              setLists(dataList);
-              setNum(n);
+              if(dataList.includes(result?.text)){
+                alert("User already scanned");
+              }
+              else{
+                n = dataList.push(result?.text);
+                setLists(dataList);
+                setNum(n);
+              }
             }
             
           }
@@ -57,18 +65,19 @@ function App(){
     <Flex color='white'>
       <Button colorScheme='blue' mr={2} onClick={() => startCamera()}>Start Camera</Button>
       <Button colorScheme='blue' onClick={() => stopCamera()}>Stop Camera</Button>
+      
     </Flex>
-    
+    {/* <Button colorScheme='blue' onClick={() => clearList()}>Clear List</Button> */}
     
     </Box>
       <Box width={'70%'}>
       <Text fontSize='4xl' color='#000000' textAlign={'center'}>Scanned Detail</Text>
       <Box>
         <ol>
-          {/* {lists && lists.map((el) => {{
+          {lists && lists.map((el) => {{
             return <li>{el}</li>
-          }})} */}
-          <li>{data}</li>
+          }})}
+          {/* <li>{lists}</li> */}
         </ol>
         {/* <p color="white">{data}</p> */}
       </Box>
